@@ -103,11 +103,11 @@ public class SystemCamera : MonoBehaviour
             // Obtener el movimiento del ratón en ambas direcciones.
             float mouseX = Input.mousePosition.x / Screen.width;
             float mouseY = Input.mousePosition.y / Screen.height;
-            float offsetZ = -(mouseX - 0.5f) * 2.0f * maxMovement;
+            float offsetX = -(mouseX - 0.5f) * 2.0f * maxMovement;
             float offsetY = (mouseY - 0.5f) * 2.0f * maxMovement;
 
             // Calcular la nueva posición de la camara.
-            Vector3 newPosition = initialPosition + new Vector3(0, offsetY, offsetZ);
+            Vector3 newPosition = initialPosition + new Vector3(offsetX, offsetY, 0);
 
             // Aplicar suavemente el movimiento.
             transform.position = Vector3.Lerp(transform.position, newPosition, Time.deltaTime * sensitivity);

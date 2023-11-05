@@ -29,10 +29,10 @@ public class NightsFolder : MonoBehaviour
             Debug.Log("Night 2");
         }
         // Nights
-        //night1Button.GetComponent<Button>().onClick.AddListener(() => StartCoroutine(loadNight("Night1")));
+        night1Button.GetComponent<Button>().onClick.AddListener(() => StartCoroutine(loadNight("Night1")));
     }
 
-    /*
+
     IEnumerator loadNight(string night)
     {
         blackScreen.enabled = true;
@@ -45,9 +45,10 @@ public class NightsFolder : MonoBehaviour
         }
         blackScreen.color = Color.black;
         yield return new WaitForSeconds(2.0f);
+        Cursor.visible = true;
         SceneManager.LoadScene(night);
     }
-    */
+
     public void openFolder()
     {
         if (!isPanelOpen)
