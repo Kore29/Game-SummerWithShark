@@ -43,7 +43,7 @@ public class Tutorial : MonoBehaviour
             }
         }
         if (tutorial == 2) {
-            tutorialText.text = "If you hear a breathing, close the door by pressing space.";
+            tutorialText.text = "If you hear a breathing, close the door by holding Space.";
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 Debug.Log("uwu");
@@ -85,7 +85,31 @@ public class Tutorial : MonoBehaviour
             {
                 yield return new WaitForSeconds(3f);
                 tutorial = 7;
-                tutorialText.text = "Tutorial completado.";
+            }
+        }
+        if (tutorial == 7)
+        {
+            tutorialText.text = "Now click on the computer screen to view the cameras.";
+            if (currentView.name.StartsWith("CameraView"))
+            {
+                yield return new WaitForSeconds(3f);
+                tutorial = 8;
+            }
+        }
+        if (tutorial == 8)
+        {
+            tutorialText.text = "You can turn on the flashlight from the cameras by pressing F.";
+            yield return new WaitForSeconds(5f);
+            tutorial = 9;
+        }
+        if (tutorial == 9)
+        {
+            tutorialText.text = "Close the cameras by pressing ESC or by pressing the button below.";
+            if (currentView.name == "FrontView")
+            {
+                yield return new WaitForSeconds(3f);
+                tutorial = 10;
+                tutorialText.text = "Tutorial Completado.";
             }
         }
     }
