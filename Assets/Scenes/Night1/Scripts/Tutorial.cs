@@ -98,7 +98,7 @@ public class Tutorial : MonoBehaviour
         }
         if (tutorial == 8)
         {
-            tutorialText.text = "You can turn on the flashlight from the cameras by pressing F.";
+            tutorialText.text = "You can turn on the flashlight from the cameras by holding F.";
             yield return new WaitForSeconds(5f);
             tutorial = 9;
         }

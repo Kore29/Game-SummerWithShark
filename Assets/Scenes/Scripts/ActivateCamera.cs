@@ -13,6 +13,7 @@ public class ActivateCamera : MonoBehaviour
     public float transitionSpeed;
     public GameObject mainCamera;
     public GameObject uiPanel;
+    public GameObject postProcessing;
     public Sprite[] imageState;
     GameObject currentView;
     public int currentCamera;
@@ -63,6 +64,10 @@ public class ActivateCamera : MonoBehaviour
         // Restaura la imagen del otro botón a la versión no seleccionada
         Button button2 = GameObject.Find("Cam2Btn").GetComponent<Button>();
         button2.GetComponent<Image>().sprite = imageState[0];
+
+        // Restaura la imagen del otro botón a la versión no seleccionada
+        Button button3 = GameObject.Find("Cam3Btn").GetComponent<Button>();
+        button3.GetComponent<Image>().sprite = imageState[0];
     }
 
     void OnButton2Clicked()
@@ -79,13 +84,39 @@ public class ActivateCamera : MonoBehaviour
         // Restaura la imagen del otro botón a la versión no seleccionada
         Button button2 = GameObject.Find("Cam2Btn").GetComponent<Button>();
         button2.GetComponent<Image>().sprite = imageState[1];
+
+        // Restaura la imagen del otro botón a la versión no seleccionada
+        Button button3 = GameObject.Find("Cam3Btn").GetComponent<Button>();
+        button3.GetComponent<Image>().sprite = imageState[0];
+
+    }
+
+    void OnButton3Clicked()
+    {
+        // Cambia de camara
+        GameObject.Find("MainCamera").GetComponent<SystemCamera>().SetCurrentView(2, true);
+
+        // Cambia la camara al que esta usando
+        currentCamera = 2;
+        // Cambia la imagen del botón a la versión seleccionada
+        Button button1 = GameObject.Find("Cam1Btn").GetComponent<Button>();
+        button1.GetComponent<Image>().sprite = imageState[0];
+
+        // Restaura la imagen del otro botón a la versión no seleccionada
+        Button button2 = GameObject.Find("Cam2Btn").GetComponent<Button>();
+        button2.GetComponent<Image>().sprite = imageState[0];
+
+        // Restaura la imagen del otro botón a la versión no seleccionada
+        Button button3 = GameObject.Find("Cam3Btn").GetComponent<Button>();
+        button3.GetComponent<Image>().sprite = imageState[1];
     }
 
     // Función para abrir la UI
     void openUI()
     {
         uiPanel.SetActive(true);
-
+        postProcessing.SetActive(true);
+        Camera.main.fieldOfView = 39f;
         // Activa el efecto de TV
         //GameObject.Find("MainCamera").GetComponent<CRTPostEffecter>().enabled = true;
 
@@ -100,6 +131,9 @@ public class ActivateCamera : MonoBehaviour
         Button button2 = GameObject.Find("Cam2Btn").GetComponent<Button>();
         button2.onClick.AddListener(OnButton2Clicked);
 
+        Button button3 = GameObject.Find("Cam3Btn").GetComponent<Button>();
+        button3.onClick.AddListener(OnButton3Clicked);
+
         // Cambia a la camara donde estaba antes
         GameObject.Find("MainCamera").GetComponent<SystemCamera>().SetCurrentView(currentCamera, true);
         BatteryScript.GetComponent<BatteryScript>().ModifyUsage(true);
@@ -112,6 +146,8 @@ public class ActivateCamera : MonoBehaviour
         //GameObject.Find("MainCamera").GetComponent<CRTPostEffecter>().enabled = false;
         // Desactiva la UI
         uiPanel.SetActive(false);
+        postProcessing.SetActive(false);
+        Camera.main.fieldOfView = 60f;
         // Se pone en la posición de la TV instantáneo para luego hacer la función de cerrar.
         GameObject.Find("MainCamera").GetComponent<SystemCamera>().SetCurrentView(3, true, true);
         // Espera hasta que haga la animación de cerrar
