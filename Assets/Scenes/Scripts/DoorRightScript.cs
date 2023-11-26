@@ -24,7 +24,7 @@ public class DoorRightScript : MonoBehaviour
     {
         // Define las rotaciones cerrada y abierta de la puerta
         closedRotation = transform.rotation;
-        openRotation = Quaternion.Euler(0, -180, 0); // Ajusta los valores seg�n tu necesidad
+        openRotation = Quaternion.Euler(0, 28, 0); // Ajusta los valores seg�n tu necesidad
     }
 
     void Update()

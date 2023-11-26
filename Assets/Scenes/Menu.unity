@@ -815,8 +815,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 2.1500053, y: -51.9}
-  m_SizeDelta: {x: -4.2999864, y: -103.8}
+  m_AnchoredPosition: {x: 3.1249962, y: -51.9}
+  m_SizeDelta: {x: 62.749996, y: -103.8}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &353926251
 MonoBehaviour:
@@ -838,7 +838,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Night1
+  m_text: Night1.mp4
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ef94b16a316641c458d41f2332b99df2, type: 2}
   m_sharedMaterial: {fileID: 851067145301947543, guid: ef94b16a316641c458d41f2332b99df2, type: 2}
@@ -865,8 +865,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 30
-  m_fontSizeBase: 30
+  m_fontSize: 29.5
+  m_fontSizeBase: 29.5
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -2793,7 +2793,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 8a64fd11bf321854686b873f8575d109, type: 3}
+  m_Sprite: {fileID: 21300000, guid: eb1b82459a474124fb51ead23bf68dac, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
