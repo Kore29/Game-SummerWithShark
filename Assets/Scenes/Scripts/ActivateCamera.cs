@@ -8,8 +8,6 @@ using UnityEngine.Video;
 
 public class ActivateCamera : MonoBehaviour
 {
-
-    // Variables
     public float transitionSpeed;
     public GameObject mainCamera;
     public GameObject uiPanel;
@@ -20,6 +18,7 @@ public class ActivateCamera : MonoBehaviour
     Transform[] views;
 
     public GameObject BatteryScript;
+
     void Start()
     {
         // uiPanel.SetActive(false);
@@ -27,138 +26,67 @@ public class ActivateCamera : MonoBehaviour
 
     void Update()
     {
-        // Coge el currentView 
         currentView = GameObject.Find("MainCamera").GetComponent<SystemCamera>().currentView.gameObject;
 
-        // Si activa el Escape y esta en las camaras, entonces se cierra
         if (Input.GetKeyDown(KeyCode.Escape) && uiPanel.activeSelf)
         {
-            closeUI();
+            CloseUI();
         }
     }
 
     void OnMouseDown()
     {
-        // Cuando aprete al TV debe estar en frente para abrir las camaras
         if (currentView.name == "FrontView")
         {
             GameObject.Find("MainCamera").GetComponent<SystemCamera>().SetCurrentView(3, false);
-            // El tiempo para abrir las camaras y hacer la animación
-            Invoke("openUI", 0.3f);
+            Invoke("OpenUI", 0.3f);
         }
-
     }
 
-    // Funciones para abrir las camaras (se puede mejorar)
-    void OnButton1Clicked()
-    {
-        // Cambia de camara
-        GameObject.Find("MainCamera").GetComponent<SystemCamera>().SetCurrentView(0, true);
-
-        // Cambia la camara al que esta usando
-        currentCamera = 0;
-        // Cambia la imagen del botón a la versión seleccionada
-        Button button1 = GameObject.Find("Cam1Btn").GetComponent<Button>();
-        button1.GetComponent<Image>().sprite = imageState[1];
-
-        // Restaura la imagen del otro botón a la versión no seleccionada
-        Button button2 = GameObject.Find("Cam2Btn").GetComponent<Button>();
-        button2.GetComponent<Image>().sprite = imageState[0];
-
-        // Restaura la imagen del otro botón a la versión no seleccionada
-        Button button3 = GameObject.Find("Cam3Btn").GetComponent<Button>();
-        button3.GetComponent<Image>().sprite = imageState[0];
-    }
-
-    void OnButton2Clicked()
-    {
-        // Cambia de camara
-        GameObject.Find("MainCamera").GetComponent<SystemCamera>().SetCurrentView(1, true);
-
-        // Cambia la camara al que esta usando
-        currentCamera = 1;
-        // Cambia la imagen del botón a la versión seleccionada
-        Button button1 = GameObject.Find("Cam1Btn").GetComponent<Button>();
-        button1.GetComponent<Image>().sprite = imageState[0];
-
-        // Restaura la imagen del otro botón a la versión no seleccionada
-        Button button2 = GameObject.Find("Cam2Btn").GetComponent<Button>();
-        button2.GetComponent<Image>().sprite = imageState[1];
-
-        // Restaura la imagen del otro botón a la versión no seleccionada
-        Button button3 = GameObject.Find("Cam3Btn").GetComponent<Button>();
-        button3.GetComponent<Image>().sprite = imageState[0];
-
-    }
-
-    void OnButton3Clicked()
-    {
-        // Cambia de camara
-        GameObject.Find("MainCamera").GetComponent<SystemCamera>().SetCurrentView(2, true);
-
-        // Cambia la camara al que esta usando
-        currentCamera = 2;
-        // Cambia la imagen del botón a la versión seleccionada
-        Button button1 = GameObject.Find("Cam1Btn").GetComponent<Button>();
-        button1.GetComponent<Image>().sprite = imageState[0];
-
-        // Restaura la imagen del otro botón a la versión no seleccionada
-        Button button2 = GameObject.Find("Cam2Btn").GetComponent<Button>();
-        button2.GetComponent<Image>().sprite = imageState[0];
-
-        // Restaura la imagen del otro botón a la versión no seleccionada
-        Button button3 = GameObject.Find("Cam3Btn").GetComponent<Button>();
-        button3.GetComponent<Image>().sprite = imageState[1];
-    }
-
-    // Función para abrir la UI
-    void openUI()
+    void OpenUI()
     {
         uiPanel.SetActive(true);
         postProcessing.SetActive(true);
         Camera.main.fieldOfView = 39f;
-        // Activa el efecto de TV
-        //GameObject.Find("MainCamera").GetComponent<CRTPostEffecter>().enabled = true;
 
-        // Las funciones de los botones
+        Button backBtn = GameObject.Find("BackCamera").GetComponent<Button>();
+        backBtn.onClick.AddListener(CloseUI);
 
-        Button BackButton = GameObject.Find("BackCamera").GetComponent<Button>();
-        BackButton.onClick.AddListener(closeUI);
+        for (int i = 1; i <= 7; i++)
+        {
+            Button camBtn = GameObject.Find($"Cam{i}Btn").GetComponent<Button>();
+            int index = i - 1;
+            camBtn.onClick.AddListener(() => OnButtonClicked(index));
+        }
 
-        Button button1 = GameObject.Find("Cam1Btn").GetComponent<Button>();
-        button1.onClick.AddListener(OnButton1Clicked);
-
-        Button button2 = GameObject.Find("Cam2Btn").GetComponent<Button>();
-        button2.onClick.AddListener(OnButton2Clicked);
-
-        Button button3 = GameObject.Find("Cam3Btn").GetComponent<Button>();
-        button3.onClick.AddListener(OnButton3Clicked);
-
-        // Cambia a la camara donde estaba antes
         GameObject.Find("MainCamera").GetComponent<SystemCamera>().SetCurrentView(currentCamera, true);
         BatteryScript.GetComponent<BatteryScript>().ModifyUsage(true);
     }
 
-    // Función para cerrar la UI
-    void closeUI()
+    void CloseUI()
     {
-        // Desactiva el efecto de TV
-        //GameObject.Find("MainCamera").GetComponent<CRTPostEffecter>().enabled = false;
-        // Desactiva la UI
         uiPanel.SetActive(false);
         postProcessing.SetActive(false);
         Camera.main.fieldOfView = 60f;
-        // Se pone en la posición de la TV instantáneo para luego hacer la función de cerrar.
         GameObject.Find("MainCamera").GetComponent<SystemCamera>().SetCurrentView(3, true, true);
-        // Espera hasta que haga la animación de cerrar
-        Invoke("closeAnimation", 0.05f);
+        Invoke("CloseAnimation", 0.05f);
         BatteryScript.GetComponent<BatteryScript>().ModifyUsage(false);
     }
 
-    void closeAnimation()
+    void CloseAnimation()
     {
-        // Hace la función de cerrar
         GameObject.Find("MainCamera").GetComponent<SystemCamera>().SetCurrentView(0, false);
     }
- }
 
+    void OnButtonClicked(int index)
+    {
+        GameObject.Find("MainCamera").GetComponent<SystemCamera>().SetCurrentView(index, true);
+        currentCamera = index;
+
+        for (int i = 1; i <= 7; i++)
+        {
+            Button button = GameObject.Find($"Cam{i}Btn").GetComponent<Button>();
+            button.GetComponent<Image>().sprite = (i == index + 1) ? imageState[1] : imageState[0];
+        }
+    }
+}
