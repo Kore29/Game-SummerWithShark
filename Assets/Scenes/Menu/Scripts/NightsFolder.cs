@@ -14,6 +14,7 @@ public class NightsFolder : MonoBehaviour
     public Button deleteButton;
     public Button night1Button;
     public Image blackScreen;
+    public RectTransform loadingImage;
     public bool isPanelOpen = false;
 
     void Start()
@@ -44,9 +45,12 @@ public class NightsFolder : MonoBehaviour
             yield return null;
         }
         blackScreen.color = Color.black;
-        yield return new WaitForSeconds(2.0f);
+        yield return new WaitForSeconds(1.0f);
+        loadingImage.gameObject.SetActive(true);
+        InvokeRepeating("rotateLoading", 0f, 0.01f);
+        yield return new WaitForSeconds(1.0f);
         Cursor.visible = true;
-        SceneManager.LoadScene(night);
+        StartCoroutine(LoadScene(night));
     }
 
     public void openFolder()
@@ -65,6 +69,23 @@ public class NightsFolder : MonoBehaviour
             // Abre el panel (hace que vuelva al tamaño normal)
             transform.LeanScale(Vector3.zero, 0.2f);
             isPanelOpen = false;
+        }
+    }
+
+    void rotateLoading()
+    {
+        // Rotar la imagen en el eje Z (ajusta el valor de velocidad según tus necesidades)
+        loadingImage.Rotate(0f, 0f, -120f * Time.deltaTime);
+    }
+
+    IEnumerator LoadScene(string scene)
+    {
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(scene);
+
+        // Wait until the asynchronous scene fully loads
+        while (!asyncLoad.isDone)
+        {
+            yield return null;
         }
     }
 }

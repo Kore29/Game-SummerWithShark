@@ -5,6 +5,7 @@ using TMPro;
 using UnityEngine.Events;
 using UnityEngine.UI;
 using UnityEngine.Video;
+using Unity.VisualScripting;
 
 public class ActivateCamera : MonoBehaviour
 {
@@ -18,7 +19,8 @@ public class ActivateCamera : MonoBehaviour
     Transform[] views;
 
     public GameObject BatteryScript;
-
+    public AudioClip[] sounds;
+    public AudioSource cameraAudio;
     void Start()
     {
         // uiPanel.SetActive(false);
@@ -80,6 +82,7 @@ public class ActivateCamera : MonoBehaviour
 
     void OnButtonClicked(int index)
     {
+        PlayRandomSound();
         GameObject.Find("MainCamera").GetComponent<SystemCamera>().SetCurrentView(index, true);
         currentCamera = index;
 
@@ -87,6 +90,22 @@ public class ActivateCamera : MonoBehaviour
         {
             Button button = GameObject.Find($"Cam{i}Btn").GetComponent<Button>();
             button.GetComponent<Image>().sprite = (i == index + 1) ? imageState[1] : imageState[0];
+        }
+    }
+
+    private void PlayRandomSound()
+    {
+        if (sounds.Length > 0)
+        {
+            int randomIndex = Random.Range(0, sounds.Length);
+            AudioClip randomSound = sounds[randomIndex];
+            cameraAudio.clip = randomSound;
+            cameraAudio.time = 1.0f;
+            cameraAudio.Play();
+        }
+        else
+        {
+            Debug.LogError("No hay sonidos asignados en el array.");
         }
     }
 }
