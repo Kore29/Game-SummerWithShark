@@ -24,7 +24,7 @@ public class DoorRightScript : MonoBehaviour
     {
         // Define las rotaciones cerrada y abierta de la puerta
         closedRotation = transform.rotation;
-        openRotation = Quaternion.Euler(0, 28, 0); // Ajusta los valores seg�n tu necesidad
+        openRotation = Quaternion.Euler(0, 0, 0); // Ajusta los valores seg�n tu necesidad
     }
 
     void Update()
@@ -46,7 +46,7 @@ public class DoorRightScript : MonoBehaviour
         {
             if (isOpen && !isAnimating)
             {
-                animationDuration = 0.5f;
+                animationDuration = 0.9f;
                 StartCoroutine(AnimateDoor(closedRotation));
 
                 audioSource.clip = openDoorAudio;
