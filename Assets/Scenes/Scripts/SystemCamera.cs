@@ -12,6 +12,13 @@ public class SystemCamera : MonoBehaviour
     public float transitionSpeed;
     public Transform currentView;
 
+    public AudioClip EsconderseAudioS; // Audio esconderse
+    private AudioSource audioSource1;
+
+    public AudioClip EsconderseAudioW; // Audio esconderse
+    private AudioSource audioSource2;
+
+
     public float sensitivity = 2.0f; // Sensibilidad del movimiento de la camara
     public float maxMovement = 1.0f; // Máximo desplazamiento lateral permitido
 
@@ -32,6 +39,13 @@ public class SystemCamera : MonoBehaviour
         initialPosition = transform.position;
         currentView = views[0];
         StartCoroutine(Desvanecer());
+
+        audioSource1 = gameObject.AddComponent<AudioSource>();
+        audioSource1.clip = EsconderseAudioS;
+
+        audioSource2 = gameObject.AddComponent<AudioSource>();
+        audioSource2.clip = EsconderseAudioW;
+
     }
 
     IEnumerator Desvanecer()
@@ -154,6 +168,11 @@ public class SystemCamera : MonoBehaviour
             if (deskView && !deskViewAnim)
             {
                 StartCoroutine(ToFirst());
+
+                if (audioSource2 != null && !audioSource2.isPlaying)
+                {
+                    audioSource2.Play();
+                }
             }
         }
 
@@ -164,6 +183,11 @@ public class SystemCamera : MonoBehaviour
             if (currentView == views[0] && !isCamera && !deskView && !deskViewAnim)
             {
                 StartCoroutine(ToDesk());
+
+                if (audioSource1 != null && !audioSource1.isPlaying)
+                {
+                    audioSource1.Play();
+                }
             }
         }
 
