@@ -17,10 +17,11 @@ public class ActivateCamera : MonoBehaviour
     GameObject currentView;
     public int currentCamera;
     Transform[] views;
-
     public GameObject BatteryScript;
     public AudioClip[] sounds;
     public AudioSource cameraAudio;
+    public RawImage glitchImage;
+    public GameObject glitchVideo;
     void Start()
     {
         // uiPanel.SetActive(false);
@@ -86,6 +87,7 @@ public class ActivateCamera : MonoBehaviour
         GameObject.Find("MainCamera").GetComponent<SystemCamera>().SetCurrentView(index, true);
         currentCamera = index;
 
+        StartCoroutine(changeCameraEffect());
         for (int i = 1; i <= 7; i++)
         {
             Button button = GameObject.Find($"Cam{i}Btn").GetComponent<Button>();
@@ -107,5 +109,12 @@ public class ActivateCamera : MonoBehaviour
         {
             Debug.LogError("No hay sonidos asignados en el array.");
         }
+    }
+
+    IEnumerator changeCameraEffect()
+    {
+        glitchImage.color = new Color(glitchImage.color.r, glitchImage.color.g, glitchImage.color.b, 1f);
+        yield return new WaitForSeconds(0.2f);
+        glitchImage.color = new Color(glitchImage.color.r, glitchImage.color.g, glitchImage.color.b, 0.2f);
     }
 }
