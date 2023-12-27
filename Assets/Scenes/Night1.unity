@@ -1588,6 +1588,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -6254590375241909387, guid: 46c60e1a3c7011b459b4e33939cb72e5, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -4646560831695501276, guid: 46c60e1a3c7011b459b4e33939cb72e5, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: -3208552870096154506, guid: 46c60e1a3c7011b459b4e33939cb72e5, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -7447,10 +7455,16 @@ MonoBehaviour:
   - {fileID: 725634865}
   - {fileID: 943170128}
   - {fileID: 465248605}
-  tiempoEsperaMin: 10
-  tiempoEsperaMax: 20
+  tiempoEsperaMin: 1
+  tiempoEsperaMax: 3
   indicePuntoActual: 0
-  puertaAbierta: 0
+  isPuerta: 0
+  maxTime: 10
+  currentTime: 0
+  tiempoRestante: 20
+  salvado: 0
+  isMoving: 0
+  tiempoPresionando: 0
 --- !u!1 &625009690
 GameObject:
   m_ObjectHideFlags: 0
@@ -10716,10 +10730,15 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 503faa6fd1d11fd4fa91621d578daa83, type: 3}
   - {fileID: 21300000, guid: 84f1c7beb92673d419a3bfc2eb66af9a, type: 3}
   - {fileID: 21300000, guid: 987727850e40f6d48a0969791498505c, type: 3}
+  FlashlightScript: {fileID: 38914137}
   flashlightLight: {fileID: 2049068776}
   flashlightCamera: {fileID: 1265519321}
   CamerasUI: {fileID: 0}
   batteryText: {fileID: 431623943}
+  TVCube: {fileID: 1478749832}
+  RoomLight: {fileID: 13878420}
+  LightSphere: {fileID: 1319617281}
+  LampLight: {fileID: 1476613215}
 --- !u!1 &934828904
 GameObject:
   m_ObjectHideFlags: 0
@@ -17319,7 +17338,13 @@ MonoBehaviour:
   tiempoEsperaMin: 1
   tiempoEsperaMax: 3
   indicePuntoActual: 0
-  puertaAbierta: 0
+  isPuerta: 0
+  maxTime: 10
+  currentTime: 0
+  tiempoRestante: 20
+  salvado: 0
+  isMoving: 0
+  tiempoPresionando: 0
 --- !u!1 &1554189408
 GameObject:
   m_ObjectHideFlags: 0

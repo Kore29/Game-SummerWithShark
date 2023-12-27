@@ -14,11 +14,19 @@ public class BatteryScript : MonoBehaviour
     public Image batteryIcon;
     public Sprite[] batteryStates;  // Debes asignar las imágenes desde el inspector
 
+    public GameObject FlashlightScript;
     public Light flashlightLight;
     public Light flashlightCamera;
+
     public GameObject CamerasUI;
 
     public TextMeshProUGUI batteryText;
+
+    public GameObject TVCube;
+    public GameObject RoomLight;
+    public GameObject LightSphere;
+
+    public GameObject LampLight;
 
     // Start is called before the first frame update
     void Start()
@@ -38,6 +46,11 @@ public class BatteryScript : MonoBehaviour
         {
             EnergiaActual = 0;
             flashlightLight.enabled = false;
+            FlashlightScript.SetActive(false);
+            TVCube.SetActive(false);
+            RoomLight.SetActive(false);
+            LampLight.SetActive(false);
+            LightSphere.SetActive(false);
         }
         batteryText.text = Mathf.FloorToInt(EnergiaActual).ToString() + "%";
 
