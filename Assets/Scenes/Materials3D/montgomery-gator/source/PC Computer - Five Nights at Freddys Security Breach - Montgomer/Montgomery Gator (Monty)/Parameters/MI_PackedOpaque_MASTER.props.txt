@@ -1,0 +1,100 @@
+TwoSided = false
+bDisableDepthTest = false
+bIsMasked = false
+ReferencedTextures[3] =
+{
+    ReferencedTextures[0] = Texture2D'/Engine/EngineMaterials/DefaultNormal.DefaultNormal'
+    ReferencedTextures[1] = Texture2D'/Engine/EngineResources/DefaultTexture.DefaultTexture'
+    ReferencedTextures[2] = Texture2D'/Game/ShadingAssets/Textures/TEX_TransitionStrip_diff.TEX_TransitionStrip_diff'
+}
+Expressions[0] = {}
+CachedExpressionData =
+{
+    Parameters =
+    {
+        Entries[5] =
+        {
+            Entries[0] =
+            {
+                ParameterInfos[3] =
+                {
+                    ParameterInfos[0] = { Name=Specular }
+                    ParameterInfos[1] = { Name=Roughness Adjust }
+                    ParameterInfos[2] = { Name=Metallic Adjust }
+                }
+            }
+            Entries[1] = { ParameterInfos[0]={} }
+            Entries[2] =
+            {
+                ParameterInfos[4] =
+                {
+                    ParameterInfos[0] = { Name=AO_Rough_Metal }
+                    ParameterInfos[1] = { Name=Base_Color_Linear }
+                    ParameterInfos[2] = { Name=Base_Color }
+                    ParameterInfos[3] = { Name=Normal }
+                }
+            }
+            Entries[3] = { ParameterInfos[0]={} }
+            Entries[4] = { ParameterInfos[0]={} }
+        }
+        ScalarValues[3] = { 0, 0.2, 0 }
+        VectorValues[0] = {}
+        TextureValues[4] =
+        {
+            TextureValues[0] = Texture2D'/Engine/EngineResources/DefaultTexture.DefaultTexture'
+            TextureValues[1] = Texture2D'/Game/ShadingAssets/Textures/TEX_TransitionStrip_diff.TEX_TransitionStrip_diff'
+            TextureValues[2] = Texture2D'/Engine/EngineResources/DefaultTexture.DefaultTexture'
+            TextureValues[3] = Texture2D'/Engine/EngineMaterials/DefaultNormal.DefaultNormal'
+        }
+    }
+    ReferencedTextures[3] =
+    {
+        ReferencedTextures[0] = Texture2D'/Engine/EngineMaterials/DefaultNormal.DefaultNormal'
+        ReferencedTextures[1] = Texture2D'/Engine/EngineResources/DefaultTexture.DefaultTexture'
+        ReferencedTextures[2] = Texture2D'/Game/ShadingAssets/Textures/TEX_TransitionStrip_diff.TEX_TransitionStrip_diff'
+    }
+}
+BlendMode = BLEND_Opaque (0)
+OpacityMaskClipValue = 0.333
+CollectedTextureParameters[4] =
+{
+    CollectedTextureParameters[0] =
+    {
+        Texture = Texture2D'/Engine/EngineResources/DefaultTexture.DefaultTexture'
+        Name = AO_Rough_Metal
+        Group = None
+    }
+    CollectedTextureParameters[1] =
+    {
+        Texture = Texture2D'/Game/ShadingAssets/Textures/TEX_TransitionStrip_diff.TEX_TransitionStrip_diff'
+        Name = Base_Color_Linear
+        Group = None
+    }
+    CollectedTextureParameters[2] =
+    {
+        Texture = Texture2D'/Engine/EngineResources/DefaultTexture.DefaultTexture'
+        Name = Base_Color
+        Group = None
+    }
+    CollectedTextureParameters[3] =
+    {
+        Texture = Texture2D'/Engine/EngineMaterials/DefaultNormal.DefaultNormal'
+        Name = Normal
+        Group = None
+    }
+}
+CollectedScalarParameters[3] =
+{
+    CollectedScalarParameters[0] = { Value=0, Name=Specular, Group=None }
+    CollectedScalarParameters[1] = { Value=0.2, Name=Roughness Adjust, Group=None }
+    CollectedScalarParameters[2] = { Value=0, Name=Metallic Adjust, Group=None }
+}
+CollectedVectorParameters[0] = {}
+FlattenedTexture = None
+MobileBaseTexture = None
+MobileNormalTexture = None
+bUseMobileSpecular = false
+MobileSpecularPower = 16
+MobileSpecularMask = MSM_Constant (0)
+MobileMaskTexture = None
+TextureStreamingData[0] = {}

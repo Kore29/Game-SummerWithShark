@@ -95,9 +95,9 @@ public class ActivateCamera : MonoBehaviour
         }
     }
 
-    private void PlayRandomSound()
+    public void PlayRandomSound()
     {
-        if (sounds.Length > 0)
+        if (sounds.Length > 0 && currentView.name.StartsWith("CameraView"))
         {
             int randomIndex = Random.Range(0, sounds.Length);
             AudioClip randomSound = sounds[randomIndex];
@@ -107,11 +107,11 @@ public class ActivateCamera : MonoBehaviour
         }
         else
         {
-            Debug.LogError("No hay sonidos asignados en el array.");
+            Debug.Log("Se ha movido.");
         }
     }
 
-    IEnumerator changeCameraEffect()
+    public IEnumerator changeCameraEffect()
     {
         glitchImage.color = new Color(glitchImage.color.r, glitchImage.color.g, glitchImage.color.b, 1f);
         yield return new WaitForSeconds(0.2f);

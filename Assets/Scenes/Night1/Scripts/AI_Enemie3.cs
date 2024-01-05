@@ -16,21 +16,29 @@ public class AI_Enemie3 : MonoBehaviour
     public bool isMoving = false;
 
     public float tiempoPresionando = 0f;
-
+    GameObject currentView;
+    public bool puertaCerrada = false;
+    public ActivateCamera activateCameraScript;
     void Start()
     {
     }
 
     void Update()
     {
+        currentView = GameObject.Find("MainCamera").GetComponent<SystemCamera>().currentView.gameObject;
         if (isPuerta)
         {
+            if (Input.GetKey(KeyCode.F) && currentView.name == "RightView" && puertaCerrada == false)
+            {
+                Debug.Log("perdiste");
+            }
             if (tiempoRestante > 0f && !salvado)
             {
                 tiempoRestante -= Time.deltaTime;
 
-                if (Input.GetKey(KeyCode.Space))
+                if (Input.GetKey(KeyCode.Space) && currentView.name == "RightView")
                 {
+                    puertaCerrada = true;
                     tiempoPresionando += Time.deltaTime;
 
                     if (tiempoPresionando >= 5f)
@@ -47,14 +55,16 @@ public class AI_Enemie3 : MonoBehaviour
                 }
                 else
                 {
+                    puertaCerrada = false;
                     // Reiniciar el tiempo de presionado si la tecla no está siendo presionada
                     tiempoPresionando = 0f;
                 }
             }
             else if (!salvado)
             {
-                if (Input.GetKey(KeyCode.Space))
+                if (Input.GetKey(KeyCode.Space) && currentView.name == "RightView")
                 {
+                    puertaCerrada = true;
                     tiempoPresionando += Time.deltaTime;
 
                     if (tiempoPresionando >= 5f)
@@ -71,6 +81,7 @@ public class AI_Enemie3 : MonoBehaviour
                 }
                 else
                 {
+                    puertaCerrada = false;
                     Debug.Log("perdiste");
                 }
             }
@@ -94,10 +105,15 @@ public class AI_Enemie3 : MonoBehaviour
     IEnumerator MoveAnimatronic()
     {
         isMoving = true;
+        activateCameraScript.PlayRandomSound();
+        StartCoroutine(activateCameraScript.changeCameraEffect());
         float tiempoEspera = Random.Range(tiempoEsperaMin, tiempoEsperaMax);
         yield return new WaitForSeconds(tiempoEspera);
         indicePuntoActual = (indicePuntoActual + 1) % puntosRuta.Length;
         transform.position = new Vector3(puntosRuta[indicePuntoActual].position.x, transform.position.y, puntosRuta[indicePuntoActual].position.z);
+        Vector3 targetRotationEuler = new Vector3(transform.rotation.x, puntosRuta[indicePuntoActual].rotation.y, transform.rotation.z);
+        Quaternion targetRotation = Quaternion.Euler(targetRotationEuler);
+        transform.rotation = targetRotation;
         isMoving = false;
     }
 
