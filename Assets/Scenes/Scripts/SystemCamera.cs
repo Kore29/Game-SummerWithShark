@@ -217,7 +217,7 @@ public class SystemCamera : MonoBehaviour
         }
     }
 
-    // Función que se utiliza para cambiar de posición la camara dependiendo del view que elijas, se utiliza solo para scripts de afuera
+    // Función que se utiliza para cambiar de posición la camara dependiendo del view que elijas, se utiliza solo para sacripts de afuera
     public void SetCurrentView(int index, bool isCameraBool, bool instant = false)
     {
         isCamera = isCameraBool;

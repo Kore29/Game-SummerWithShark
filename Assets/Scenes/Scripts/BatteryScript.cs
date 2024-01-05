@@ -23,10 +23,15 @@ public class BatteryScript : MonoBehaviour
     public TextMeshProUGUI batteryText;
 
     public GameObject TVCube;
-    public GameObject RoomLight;
-    public GameObject LightSphere;
 
+    public GameObject RoomLightGreen;
+    public GameObject RoomLightRed;
+
+    public GameObject RoomLightDetras;
     public GameObject LampLight;
+
+    public AudioSource ElectricStatic;
+    public AudioSource PowerOuter;
 
     // Start is called before the first frame update
     void Start()
@@ -48,9 +53,15 @@ public class BatteryScript : MonoBehaviour
             flashlightLight.enabled = false;
             FlashlightScript.SetActive(false);
             TVCube.SetActive(false);
-            RoomLight.SetActive(false);
+
+            RoomLightGreen.SetActive(false);
+            RoomLightRed.SetActive(true);
+
             LampLight.SetActive(false);
-            LightSphere.SetActive(false);
+            RoomLightDetras.SetActive(false);
+
+            PowerOuter.Play(0);
+            ElectricStatic.Stop();
         }
         batteryText.text = Mathf.FloorToInt(EnergiaActual).ToString() + "%";
 
