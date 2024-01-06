@@ -112,5 +112,6 @@ public class Tutorial : MonoBehaviour
                 tutorialText.text = "Tutorial Completado.";
             }
         }
+
     }
 }

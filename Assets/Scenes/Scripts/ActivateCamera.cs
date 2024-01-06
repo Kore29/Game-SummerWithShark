@@ -22,6 +22,11 @@ public class ActivateCamera : MonoBehaviour
     public AudioSource cameraAudio;
     public RawImage glitchImage;
     public GameObject glitchVideo;
+    public GameObject TVCube;
+    public GameObject CameraLight;
+
+    public bool disabledCamera;
+
     void Start()
     {
         // uiPanel.SetActive(false);
@@ -35,6 +40,16 @@ public class ActivateCamera : MonoBehaviour
         {
             CloseUI();
         }
+
+        if (BatteryScript.GetComponent<BatteryScript>().EnergiaActual <= 0 && disabledCamera == false)
+        {
+            CloseUI();
+            disabledCamera = true;
+            CameraLight.SetActive(false);
+            TVCube.SetActive(false);
+            Debug.Log("Closed UI");
+        }
+
     }
 
     void OnMouseDown()
@@ -66,7 +81,7 @@ public class ActivateCamera : MonoBehaviour
         BatteryScript.GetComponent<BatteryScript>().ModifyUsage(true);
     }
 
-    void CloseUI()
+    public void CloseUI()
     {
         uiPanel.SetActive(false);
         postProcessing.SetActive(false);
