@@ -22,8 +22,8 @@ public class BatteryScript : MonoBehaviour
 
     public GameObject TVCube;
 
-    public GameObject RoomLightGreen;
-    public GameObject RoomLightRed;
+    public Light RoomLightGreen;
+    public Light RoomLightRed;
 
     public GameObject RoomLightDetras;
     public GameObject LampLight;
@@ -52,8 +52,8 @@ public class BatteryScript : MonoBehaviour
             flashlightLight.enabled = false;
             FlashlightScript.SetActive(false);
 
-            RoomLightGreen.SetActive(false);
-            RoomLightRed.SetActive(true);
+            RoomLightGreen.enabled = false;
+            RoomLightRed.enabled = true;
 
             LampLight.SetActive(false);
             RoomLightDetras.SetActive(false);

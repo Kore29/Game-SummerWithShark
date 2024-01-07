@@ -9,50 +9,30 @@ public class AI_Enemie1 : MonoBehaviour
     public int indicePuntoActual = 0;
     public bool isPuerta = false;
 
-    public float maxTime = 3f;
+    public float maxTime = 10f;
     public float currentTime = 0f;
     public float tiempoRestante = 20f;
     public bool salvado = false;
     public bool isMoving = false;
-    public bool disabledd = false;
 
-
+    public float tiempoPresionando = 0f;
     GameObject currentView;
     public bool puertaCerrada = false;
     public ActivateCamera activateCameraScript;
+    public int route;
+
     void Start()
     {
+
     }
 
     void Update()
     {
         currentView = GameObject.Find("MainCamera").GetComponent<SystemCamera>().currentView.gameObject;
-        if (isPuerta)
-        {
-            tiempoRestante -= Time.deltaTime;
-            if (currentView.name == "DeskView")
-            {
-                salvado = true;
-            }
-            if (tiempoRestante > 0f && salvado == true)
-            {
-                salvado = true;
-                Debug.Log("salvado");
-                indicePuntoActual = 0;
-                transform.position = new Vector3(puntosRuta[indicePuntoActual].position.x, transform.position.y, puntosRuta[indicePuntoActual].position.z);
-                tiempoRestante = 20f;
-                isPuerta = false;
-                salvado = false;
-            }
-            else if (salvado == false)
-            {
-                Debug.Log("Perdiste");
-            }
-        }
 
         if (indicePuntoActual == puntosRuta.Length - 1)
         {
-            isPuerta = true;
+            Debug.Log("perdiste");
         }
         else
         {
@@ -74,10 +54,6 @@ public class AI_Enemie1 : MonoBehaviour
         yield return new WaitForSeconds(tiempoEspera);
         indicePuntoActual = (indicePuntoActual + 1) % puntosRuta.Length;
         transform.position = new Vector3(puntosRuta[indicePuntoActual].position.x, transform.position.y, puntosRuta[indicePuntoActual].position.z);
-        Vector3 targetRotationEuler = new Vector3(transform.rotation.x, puntosRuta[indicePuntoActual].rotation.y, transform.rotation.z);
-        Quaternion targetRotation = Quaternion.Euler(targetRotationEuler);
-        transform.rotation = targetRotation;
         isMoving = false;
     }
-
 }

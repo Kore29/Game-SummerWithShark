@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using TMPro;
 public class SystemCamera : MonoBehaviour
 {
 
@@ -31,6 +31,10 @@ public class SystemCamera : MonoBehaviour
     public bool isCamera = false;
     public bool deskView = false;
     public bool deskViewAnim = false;
+
+    public AI_Enemie2 ai2;
+    public TMP_Text BatteryText;
+    public Image BatteryIcon;
 
     void Start()
     {
@@ -78,6 +82,8 @@ public class SystemCamera : MonoBehaviour
         }
         blackScreen.color = Color.black;
         currentView = views[4];
+        BatteryText.enabled = false;
+        BatteryIcon.enabled = false;
         yield return new WaitForSeconds(1.0f);
         StartCoroutine(Desvanecer());
     }
@@ -96,6 +102,8 @@ public class SystemCamera : MonoBehaviour
         }
         blackScreen.color = Color.black;
         currentView = views[0];
+        BatteryText.enabled = true;
+        BatteryIcon.enabled = true;
         yield return new WaitForSeconds(1.0f);
         StartCoroutine(Desvanecer());
     }
@@ -132,7 +140,7 @@ public class SystemCamera : MonoBehaviour
         {
 
             // Verifica si esta en frente y si no está en la camara
-            if (currentView == views[0] && !isCamera && !deskView)
+            if (currentView == views[0] && !isCamera && !deskView && !ai2.animation)
             {
                 currentView = views[1];
             }
@@ -149,7 +157,7 @@ public class SystemCamera : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.A))
         {
             // Verifica si esta en frente y si no está en la camara
-            if (currentView == views[0] && !isCamera && !deskView)
+            if (currentView == views[0] && !isCamera && !deskView && !ai2.animation)
             {
                 currentView = views[2];
             }
@@ -165,7 +173,7 @@ public class SystemCamera : MonoBehaviour
         // Cuando aprete la letra W
         if (Input.GetKeyDown(KeyCode.W))
         {
-            if (deskView && !deskViewAnim)
+            if (deskView && !deskViewAnim && !ai2.animation)
             {
                 StartCoroutine(ToFirst());
 
@@ -180,7 +188,7 @@ public class SystemCamera : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.S))
         {
             // Verifica si esta en frente y si no está en la camara
-            if (currentView == views[0] && !isCamera && !deskView && !deskViewAnim)
+            if (currentView == views[0] && !isCamera && !deskView && !deskViewAnim && !ai2.animation)
             {
                 StartCoroutine(ToDesk());
 

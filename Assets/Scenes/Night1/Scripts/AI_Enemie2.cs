@@ -23,8 +23,11 @@ public class AI_Enemie2 : MonoBehaviour
     public bool puertaCerrada = false;
     public ActivateCamera activateCameraScript;
 
+    public bool animation = false;
+    public Light Light;
     void Start()
     {
+
     }
 
     void Update()
@@ -73,9 +76,6 @@ public class AI_Enemie2 : MonoBehaviour
         yield return new WaitForSeconds(tiempoEspera);
         indicePuntoActual = (indicePuntoActual + 1) % puntosRuta.Length;
         transform.position = new Vector3(puntosRuta[indicePuntoActual].position.x, transform.position.y, puntosRuta[indicePuntoActual].position.z);
-        Vector3 targetRotationEuler = new Vector3(transform.rotation.x, puntosRuta[indicePuntoActual].rotation.y, transform.rotation.z);
-        Quaternion targetRotation = Quaternion.Euler(targetRotationEuler);
-        transform.rotation = targetRotation;
         isMoving = false;
     }
 
@@ -83,14 +83,18 @@ public class AI_Enemie2 : MonoBehaviour
     {
         //ai3.disabledd = true;
         Debug.Log("salvado");
+        animation = true;
+        Light.enabled = false;
         yield return new WaitForSeconds(5f);
         stepsAudio.Play();
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(10f);
+        Light.enabled = true;
         indicePuntoActual = 0;
         transform.position = new Vector3(puntosRuta[indicePuntoActual].position.x, transform.position.y, puntosRuta[indicePuntoActual].position.z);
         tiempoRestante = 20f;
         isPuerta = false;
         salvado = false;
+        animation = false;
     }
 
 }

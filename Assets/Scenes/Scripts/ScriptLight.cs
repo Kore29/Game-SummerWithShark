@@ -20,17 +20,17 @@ public class ScriptLight : MonoBehaviour
         while (true)
         {
             yield return new WaitForSeconds(Random.Range(5, 11));
-            GetComponent<Light>().intensity = 10;
-            yield return new WaitForSeconds(0.1f);
-            GetComponent<Light>().intensity = 33;
+            GetComponent<Light>().intensity = 5;
             yield return new WaitForSeconds(0.1f);
             GetComponent<Light>().intensity = 10;
             yield return new WaitForSeconds(0.1f);
-            GetComponent<Light>().intensity = 33;
+            GetComponent<Light>().intensity = 5;
             yield return new WaitForSeconds(0.1f);
             GetComponent<Light>().intensity = 10;
             yield return new WaitForSeconds(0.1f);
-            GetComponent<Light>().intensity = 33;
+            GetComponent<Light>().intensity = 5;
+            yield return new WaitForSeconds(0.1f);
+            GetComponent<Light>().intensity = 10;
         }
 
     }

@@ -111,9 +111,6 @@ public class AI_Enemie3 : MonoBehaviour
         yield return new WaitForSeconds(tiempoEspera);
         indicePuntoActual = (indicePuntoActual + 1) % puntosRuta.Length;
         transform.position = new Vector3(puntosRuta[indicePuntoActual].position.x, transform.position.y, puntosRuta[indicePuntoActual].position.z);
-        Vector3 targetRotationEuler = new Vector3(transform.rotation.x, puntosRuta[indicePuntoActual].rotation.y, transform.rotation.z);
-        Quaternion targetRotation = Quaternion.Euler(targetRotationEuler);
-        transform.rotation = targetRotation;
         isMoving = false;
     }
 
