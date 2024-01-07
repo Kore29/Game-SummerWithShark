@@ -1,6 +1,5 @@
 using UnityEngine;
 using System.Collections;
-using System.Collections.Generic;
 
 public class FlashlightController : MonoBehaviour
 {
@@ -18,22 +17,22 @@ public class FlashlightController : MonoBehaviour
 
     public float AnimatronicLight = 100.9f;
 
-
     public GameObject BatteryScript;
 
     private bool isFlashlightOn = false;
-    GameObject objecto;
+    private GameObject objecto;
+    private bool canToggleFlashlight = true; // Variable para controlar el retraso
 
     private void Start()
     {
         // Desactiva la linterna al principio
         flashlightObject.SetActive(false);
-        StartCoroutine(enableAudio());
+        StartCoroutine(EnableAudio());
     }
 
     private void Update()
     {
-        // Coge el currentView de la camara
+        // Coge el currentView de la cámara
         objecto = GameObject.Find("MainCamera").GetComponent<SystemCamera>().currentView.gameObject;
 
         if (flashlightCamera.activeSelf && objecto.name == "CameraView2")
@@ -45,29 +44,27 @@ public class FlashlightController : MonoBehaviour
             AnimatronicLight -= Time.deltaTime * 0.5f;
         }
 
-        // Verifica si está la camara en la derecha o izquierda
+        // Verifica si está la cámara en la derecha o izquierda
         if (objecto.name == "LeftView" || objecto.name == "RightView")
         {
-            if (Input.GetKeyDown(KeyCode.F))
+            if (Input.GetKeyDown(KeyCode.F) && canToggleFlashlight)
             {
                 if (!flashlightObject.activeSelf)
                 {
                     ToggleFlashlight(true);
+                    StartCoroutine(DelayToggleFlashlight(0.7f)); // Retraso de 0.7 segundos
                 }
             }
-            if (Input.GetKeyUp(KeyCode.F))
+            if (Input.GetKeyUp(KeyCode.F) && flashlightObject.activeSelf)
             {
-                if (flashlightObject.activeSelf)
-                {
-                    ToggleFlashlight(false);
-                }
+                ToggleFlashlight(false);
             }
         }
         else
         {
             if (objecto.name == "FrontView" || objecto.name == "DeskView")
             {
-                // Verifica si esta encendida la linterna para apagarla
+                // Verifica si está encendida la linterna para apagarla
                 if (isFlashlightOn || flashlightCamera.activeSelf)
                 {
                     ToggleFlashlight(false);
@@ -76,28 +73,35 @@ public class FlashlightController : MonoBehaviour
             }
             else
             {
-                if (Input.GetKeyDown(KeyCode.F))
+                if (Input.GetKeyDown(KeyCode.F) && canToggleFlashlight)
                 {
                     if (!flashlightCamera.activeSelf)
                     {
                         ToggleCameraFlashlight(true);
+                        StartCoroutine(DelayToggleFlashlight(0.7f)); // Retraso de 0.7 segundos
                     }
                 }
-                if (Input.GetKeyUp(KeyCode.F))
+                if (Input.GetKeyUp(KeyCode.F) && flashlightCamera.activeSelf)
                 {
-                    if (flashlightCamera.activeSelf)
-                    {
-                        ToggleCameraFlashlight(false);
-                    }
+                    ToggleCameraFlashlight(false);
                 }
             }
         }
     }
 
-    private IEnumerator enableAudio()
+    private IEnumerator EnableAudio()
     {
         yield return new WaitForSeconds(1.0f);
         audioManager.SetActive(true);
+    }
+
+    private IEnumerator DelayToggleFlashlight(float delayTime)
+    {
+        canToggleFlashlight = false; // Desactiva la posibilidad de togglear la linterna
+
+        yield return new WaitForSeconds(delayTime); // Espera el tiempo especificado
+
+        canToggleFlashlight = true; // Reactiva la posibilidad de togglear la linterna
     }
 
     private void ToggleCameraFlashlight(bool active)
@@ -130,7 +134,7 @@ public class FlashlightController : MonoBehaviour
 
     private void ToggleFlashlight(bool active)
     {
-        // Verifica si esta apagada la linterna para encenderla
+        // Verifica si está apagada la linterna para encenderla
         if (active)
         {
             isFlashlightOn = true;
@@ -159,10 +163,9 @@ public class FlashlightController : MonoBehaviour
             DarkObject.SetActive(true);
             flashlightObject.SetActive(false);
             BatteryScript.GetComponent<BatteryScript>().ModifyUsage(false);
-
         }
     }
-
 }
+
 
 

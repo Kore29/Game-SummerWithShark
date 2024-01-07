@@ -25,13 +25,16 @@ public class BatteryScript : MonoBehaviour
     public Light RoomLightGreen;
     public Light RoomLightRed;
 
+    public GameObject LightDoorLeft;
     public GameObject RoomLightDetras;
     public GameObject LampLight;
+    public GameObject RedPhone;
 
     public AudioSource ElectricStatic;
     public AudioSource PowerOuter;
 
     public AudioClip powerSound;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -57,17 +60,19 @@ public class BatteryScript : MonoBehaviour
 
             LampLight.SetActive(false);
             RoomLightDetras.SetActive(false);
+            LightDoorLeft.SetActive(false);
+            RedPhone.SetActive(false);
 
+            // Asigna el clip antes de reproducirlo
             PowerOuter.clip = powerSound;
             PowerOuter.time = 0f;
             PowerOuter.Play();
+
             ElectricStatic.Stop();
         }
         batteryText.text = Mathf.FloorToInt(EnergiaActual).ToString() + "%";
 
         batteryIcon.sprite = batteryStates[Usage];
-
-
 
         VelocidadConsumo = Usage * 0.1f;
     }
@@ -83,6 +88,5 @@ public class BatteryScript : MonoBehaviour
             Usage = Usage - 1;
         }
     }
-
-
 }
+
