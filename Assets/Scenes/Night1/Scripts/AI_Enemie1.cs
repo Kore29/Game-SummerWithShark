@@ -16,7 +16,7 @@ public class AI_Enemie1 : MonoBehaviour
     public bool isMoving = false;
 
     public float tiempoPresionando = 0f;
-    GameObject currentView;
+    public GameObject currentView;
     public bool puertaCerrada = false;
     public ActivateCamera activateCameraScript;
     public int route;

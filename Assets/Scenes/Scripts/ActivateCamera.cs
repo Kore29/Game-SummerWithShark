@@ -25,6 +25,8 @@ public class ActivateCamera : MonoBehaviour
     public GameObject TVCube;
     public GameObject CameraLight;
 
+
+    public GameObject canvas;
     public bool disabledCamera;
 
     void Start()
@@ -66,6 +68,8 @@ public class ActivateCamera : MonoBehaviour
         uiPanel.SetActive(true);
         postProcessing.SetActive(true);
         Camera.main.fieldOfView = 39f;
+        
+        canvas.gameObject.SetActive(false);
 
         Button backBtn = GameObject.Find("BackCamera").GetComponent<Button>();
         backBtn.onClick.AddListener(CloseUI);
@@ -89,6 +93,8 @@ public class ActivateCamera : MonoBehaviour
         GameObject.Find("MainCamera").GetComponent<SystemCamera>().SetCurrentView(3, true, true);
         Invoke("CloseAnimation", 0.05f);
         BatteryScript.GetComponent<BatteryScript>().ModifyUsage(false);
+
+        canvas.gameObject.SetActive(true);
     }
 
     void CloseAnimation()

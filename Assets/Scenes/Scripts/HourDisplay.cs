@@ -29,23 +29,16 @@ public class Timer : MonoBehaviour
 
     IEnumerator updateClock()
     {
-        // Verifica si esta corriendo el reloj y que sea debajo o igual que 6
         while (isRunning && currentHour <= 6)
         {
-            // Tiempo para ejecutar la función
             yield return new WaitForSeconds(timeInterval);
-
             currentHour++;
 
             clockText.text = currentHour + " AM";
-
-            // Si la hora es 0, entonces se muestra 12 AM
             if (currentHour == 0)
             {
                 clockText.text = "12 AM";
             }
-
-            // Si la hora es 6, entonces muestra el final y desactiva el reloj
             if (currentHour == 6)
             {
                 final();

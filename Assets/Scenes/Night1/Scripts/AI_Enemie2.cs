@@ -15,6 +15,9 @@ public class AI_Enemie2 : MonoBehaviour
     public bool salvado = false;
     public bool isMoving = false;
 
+    public GameObject FlashLight;
+    public AudioSource Jumpscare;
+
     public AI_Enemie3 ai3;
 
     public AudioSource stepsAudio;
@@ -50,6 +53,15 @@ public class AI_Enemie2 : MonoBehaviour
                 puertaCerrada = false;
                 Debug.Log("perdiste");
             }
+        }
+
+        // Verificar
+        if (Input.GetKey(KeyCode.F) && currentView.name == "RightView" && puertaCerrada == false)
+        {
+            if (!Jumpscare.isPlaying)
+            {
+                Jumpscare.Play();
+            } 
         }
 
         if (indicePuntoActual == puntosRuta.Length - 1)
