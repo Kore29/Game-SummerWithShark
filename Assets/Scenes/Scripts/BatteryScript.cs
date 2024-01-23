@@ -6,8 +6,8 @@ using UnityEngine.UI;
 
 public class BatteryScript : MonoBehaviour
 {
-    public float EnergiaActual = 100.9f;
-    public float EnergiaMinima = 100.9f;
+    public float EnergiaActual = 100f;
+    public float EnergiaMinima = 100f;
     public float VelocidadConsumo = 0;
     public int Usage = 1;
 
@@ -32,8 +32,10 @@ public class BatteryScript : MonoBehaviour
 
     public AudioSource ElectricStatic;
     public AudioSource PowerOuter;
+    public AudioSource MusicFinal;
 
     public AudioClip powerSound;
+    private bool yaReprodujoSonido = false;
 
     // Start is called before the first frame update
     void Start()
@@ -64,10 +66,6 @@ public class BatteryScript : MonoBehaviour
             RedPhone.SetActive(false);
 
             // Asigna el clip antes de reproducirlo
-            PowerOuter.clip = powerSound;
-            PowerOuter.time = 0f;
-            PowerOuter.Play();
-
             ElectricStatic.Stop();
         }
         batteryText.text = Mathf.FloorToInt(EnergiaActual).ToString() + "%";
@@ -75,8 +73,20 @@ public class BatteryScript : MonoBehaviour
         batteryIcon.sprite = batteryStates[Usage];
 
         VelocidadConsumo = Usage * 0.1f;
-    }
 
+        if (EnergiaActual <= 0 && !yaReprodujoSonido)
+        {
+            // Incrementar EnergiaActual y establecer la bandera a true
+            EnergiaActual += 1f;
+            yaReprodujoSonido = true;
+
+            // Restablecer la configuración y reproducir el sonido
+            PowerOuter.clip = powerSound;
+            PowerOuter.time = 0f;
+            PowerOuter.Play();
+        }
+        
+    }
     public void ModifyUsage(bool add)
     {
         if (add)

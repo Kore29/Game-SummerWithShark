@@ -17,6 +17,9 @@ public class AI_Enemie2 : MonoBehaviour
 
     public GameObject FlashLight;
     public AudioSource Jumpscare;
+    public float tiempoEspera = 30f;  // tiempo en segundos antes de poder reproducir el sonido nuevamente
+    private bool puedeReproducir = true;
+    private float tiempoUltimaReproduccion;
 
     public AI_Enemie3 ai3;
 
@@ -56,12 +59,20 @@ public class AI_Enemie2 : MonoBehaviour
         }
 
         // Verificar
-        if (Input.GetKey(KeyCode.F) && currentView.name == "RightView" && puertaCerrada == false)
+        if (Input.GetKey(KeyCode.F) && currentView.name == "LeftView" && isPuerta == true)
         {
-            if (!Jumpscare.isPlaying)
+            // Verificar si puede reproducir el sonido
+            if (puedeReproducir && !Jumpscare.isPlaying)
             {
+                // Reproducir el sonido
                 Jumpscare.Play();
-            } 
+
+                // Actualizar el tiempo de la última reproducción
+                tiempoUltimaReproduccion = Time.time;
+
+                // Desactivar la capacidad de reproducción hasta que haya pasado el tiempo de espera
+                puedeReproducir = false;
+            }
         }
 
         if (indicePuntoActual == puntosRuta.Length - 1)

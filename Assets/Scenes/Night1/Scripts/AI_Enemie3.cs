@@ -3,8 +3,6 @@ using UnityEngine;
 
 public class AI_Enemie3 : MonoBehaviour
 {
-
-
     public Transform[] puntosRuta;
     public float tiempoEsperaMin = 1f;
     public float tiempoEsperaMax = 3f;
@@ -96,15 +94,6 @@ public class AI_Enemie3 : MonoBehaviour
 
         if (indicePuntoActual == puntosRuta.Length - 1)
         {
-            isPuerta = true;
-          //  if (!audioSource.isPlaying && currentView.name == "RightView")
-          //  {
-            //    audioSource.Play();
-          //  }
-        }
-        else
-        {
-      //      audioSource.volume = 0f; // Mutea si no estás en "RightView"
             if (!isMoving)
             {
                 StartCoroutine(MoveAnimatronic());
