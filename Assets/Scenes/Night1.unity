@@ -16621,20 +16621,19 @@ MonoBehaviour:
   - {fileID: 2032124519}
   - {fileID: 943170128}
   - {fileID: 465248605}
-  tiempoEsperaMin: 2
-  tiempoEsperaMax: 3
+  tiempoEsperaMin: 20
+  tiempoEsperaMax: 35
   indicePuntoActual: 1
   isPuerta: 0
+  audioSource: {fileID: 0}
   maxTime: 3
   currentTime: 0
   tiempoRestante: 15
   salvado: 0
   isMoving: 0
   tiempoPresionando: 0
-  currentView: {fileID: 0}
   puertaCerrada: 0
   activateCameraScript: {fileID: 1478749837}
-  route: 0
 --- !u!4 &1368065265 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 48bd2ba6038ab6941823df4aed606891, type: 3}
@@ -19021,16 +19020,15 @@ MonoBehaviour:
   tiempoEsperaMax: 3
   indicePuntoActual: 0
   isPuerta: 0
+  audioSource: {fileID: 0}
   maxTime: 10
   currentTime: 0
   tiempoRestante: 20
   salvado: 0
   isMoving: 0
   tiempoPresionando: 0
-  currentView: {fileID: 0}
   puertaCerrada: 0
   activateCameraScript: {fileID: 0}
-  route: 0
 --- !u!1 &1554189408
 GameObject:
   m_ObjectHideFlags: 0
@@ -23997,8 +23995,8 @@ MonoBehaviour:
   - {fileID: 274685189}
   - {fileID: 181614328}
   WayPointPerdido: {fileID: 0}
-  tiempoEsperaMin: 2
-  tiempoEsperaMax: 5
+  tiempoEsperaMin: 35
+  tiempoEsperaMax: 45
   indicePuntoActual: 1
   maxTime: 3
   currentTime: 0
@@ -24015,15 +24013,6 @@ MonoBehaviour:
   Jumpscare: {fileID: 2040909315}
   JumpscareGeneral: {fileID: 1712413077}
   activateCameraScript: {fileID: 1478749837}
-  LightDoorLeft: {fileID: 502258716}
-  LightDoorRight: {fileID: 2040035544}
-  RoomLightDetras: {fileID: 782997337}
-  LampLight: {fileID: 1319617281}
-  RedPhone: {fileID: 980894743}
-  LostLight: {fileID: 766762521}
-  canvas: {fileID: 1928656923}
-  TVcube: {fileID: 1478749832}
-  Lost: {fileID: 199196750}
 --- !u!1001 &2041137521
 PrefabInstance:
   m_ObjectHideFlags: 0

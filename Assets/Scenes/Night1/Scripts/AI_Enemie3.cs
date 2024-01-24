@@ -3,11 +3,14 @@ using UnityEngine;
 
 public class AI_Enemie3 : MonoBehaviour
 {
+
+
     public Transform[] puntosRuta;
     public float tiempoEsperaMin = 1f;
     public float tiempoEsperaMax = 3f;
     public int indicePuntoActual = 0;
     public bool isPuerta = false;
+    public AudioSource audioSource;
 
     public float maxTime = 10f;
     public float currentTime = 0f;
@@ -19,9 +22,13 @@ public class AI_Enemie3 : MonoBehaviour
     GameObject currentView;
     public bool puertaCerrada = false;
     public ActivateCamera activateCameraScript;
-
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)
+        {
+            audioSource = gameObject.AddComponent<AudioSource>();
+        }
     }
 
     void Update()
@@ -91,9 +98,14 @@ public class AI_Enemie3 : MonoBehaviour
         if (indicePuntoActual == puntosRuta.Length - 1)
         {
             isPuerta = true;
+            //  if (!audioSource.isPlaying && currentView.name == "RightView")
+            //  {
+            //    audioSource.Play();
+            //  }
         }
         else
         {
+            //      audioSource.volume = 0f; // Mutea si no est�s en "RightView"
             if (!isMoving)
             {
                 StartCoroutine(MoveAnimatronic());
@@ -106,15 +118,13 @@ public class AI_Enemie3 : MonoBehaviour
     IEnumerator MoveAnimatronic()
     {
         isMoving = true;
-        activateCameraScript.PlayRandomSound();
+
+        //activateCameraScript.PlayRandomSound();
         StartCoroutine(activateCameraScript.changeCameraEffect());
         float tiempoEspera = Random.Range(tiempoEsperaMin, tiempoEsperaMax);
         yield return new WaitForSeconds(tiempoEspera);
         indicePuntoActual = (indicePuntoActual + 1) % puntosRuta.Length;
         transform.position = new Vector3(puntosRuta[indicePuntoActual].position.x, transform.position.y, puntosRuta[indicePuntoActual].position.z);
-        transform.rotation = puntosRuta[indicePuntoActual].rotation;
-        Quaternion targetRotation = Quaternion.Euler(targetRotationEuler);
-        transform.rotation = targetRotation;
         isMoving = false;
     }
 

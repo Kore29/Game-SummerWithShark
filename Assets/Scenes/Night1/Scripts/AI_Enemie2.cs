@@ -5,8 +5,8 @@ public class AI_Enemie2 : MonoBehaviour
 {
     public Transform[] puntosRuta;
     public Transform WayPointPerdido;
-    public float tiempoEsperaMin = 1f;
-    public float tiempoEsperaMax = 3f;
+    public float tiempoEsperaMin = 25f;
+    public float tiempoEsperaMax = 30f;
     public int indicePuntoActual = 0;
 
     public float maxTime = 3f;
@@ -31,19 +31,6 @@ public class AI_Enemie2 : MonoBehaviour
 
     GameObject currentView;
     public ActivateCamera activateCameraScript;
-
-    public GameObject LightDoorLeft;
-    public GameObject LightDoorRight;
-    public GameObject RoomLightDetras;
-    public GameObject LampLight;
-    public GameObject RedPhone;
-    public GameObject LostLight;
-
-
-    public GameObject canvas;
-    public GameObject TVcube;
-    public GameObject Lost;
-
     void Start()
     {
 
@@ -67,9 +54,7 @@ public class AI_Enemie2 : MonoBehaviour
             else if (!salvado)
             {
                 puertaCerrada = false;
-                AnimationLost();
-                AnimationLostFinal();
-                //Debug.Log("perdiste");
+                Debug.Log("perdiste");
             }
         }
 
@@ -96,31 +81,6 @@ public class AI_Enemie2 : MonoBehaviour
         }
     }
 
-    void AnimationLost()
-    {
-        transform.position = WayPointPerdido.transform.position;
-
-        JumpscareGeneral.Play();
-        tiempoRestante += 5f;
-
-        LampLight.SetActive(false);
-        RoomLightDetras.SetActive(false);
-        LightDoorLeft.SetActive(false);
-        LightDoorRight.SetActive(false);
-        RedPhone.SetActive(false);
-        LostLight.SetActive(true);
-
-        canvas.gameObject.SetActive(false);
-        TVcube.SetActive(false);
-        LostLight.SetActive(true);
-    }
-
-    IEnumerator AnimationLostFinal()
-    {
-        yield return new WaitForSeconds(5f);
-        Lost.SetActive(true);
-        JumpscareGeneral.Stop();
-    }
 
     IEnumerator MoveAnimatronic()
     {
@@ -150,5 +110,4 @@ public class AI_Enemie2 : MonoBehaviour
         salvado = false;
         animation = false;
     }
-
 }

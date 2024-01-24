@@ -110,7 +110,6 @@ public class ActivateCamera : MonoBehaviour
 
     void OnButtonClicked(int index)
     {
-        PlayRandomSound();
         GameObject.Find("MainCamera").GetComponent<SystemCamera>().SetCurrentView(index, true);
         currentCamera = index;
 
@@ -122,21 +121,7 @@ public class ActivateCamera : MonoBehaviour
         }
     }
 
-    public void PlayRandomSound()
-    {
-        if (sounds.Length > 0 && currentView.name.StartsWith("CameraView"))
-        {
-            int randomIndex = Random.Range(0, sounds.Length);
-            AudioClip randomSound = sounds[randomIndex];
-            cameraAudio.clip = randomSound;
-            cameraAudio.time = 1.0f;
-            cameraAudio.Play();
-        }
-        else
-        {
-            Debug.Log("Se ha movido.");
-        }
-    }
+
 
     public IEnumerator changeCameraEffect()
     {
