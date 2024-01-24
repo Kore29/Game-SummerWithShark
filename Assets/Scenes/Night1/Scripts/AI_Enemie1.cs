@@ -1,47 +1,66 @@
-using System.Collections;
+ï»¿using System.Collections;
 using UnityEngine;
 
 public class AI_Enemie1 : MonoBehaviour
 {
-    public Transform[] camino1Waypoints;
-    public Transform[] camino2Waypoints;
 
-    private Transform[] puntosRutaActual;
-    private int indicePuntoActual = 0;
-    private bool isMoving = false;
+
+    public Transform[] puntosRuta;
+    public float tiempoEsperaMin = 1f;
+    public float tiempoEsperaMax = 3f;
+    public int indicePuntoActual = 0;
+    public bool isPuerta = false;
+    public AudioSource audioSource;
+
+    public float maxTime = 10f;
+    public float currentTime = 0f;
+    public float tiempoRestante = 20f;
+    public bool salvado = false;
+    public bool isMoving = false;
+
+    public float tiempoPresionando = 0f;
+    public bool puertaCerrada = false;
+    public ActivateCamera activateCameraScript;
 
     void Start()
     {
-        // Seleccionar aleatoriamente el camino al inicio
-        if (Random.Range(0, 2) == 0)
-            puntosRutaActual = camino1Waypoints;
-        else
-            puntosRutaActual = camino2Waypoints;
-
-        // Iniciar el movimiento
-        StartCoroutine(MoveAnimatronic());
+        audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)
+        {
+            audioSource = gameObject.AddComponent<AudioSource>();
+        }
     }
 
     void Update()
     {
-        // Puedes agregar lógica adicional aquí si es necesario
+
+
+        if (indicePuntoActual == puntosRuta.Length - 1)
+        {
+            Debug.Log("Has perdido.");
+        }
+        else
+        {
+            //      audioSource.volume = 0f; // Mutea si no estï¿½s en "RightView"
+            if (!isMoving)
+            {
+                StartCoroutine(MoveAnimatronic());
+            }
+        }
     }
+
+
 
     IEnumerator MoveAnimatronic()
     {
         isMoving = true;
 
-        // Espera aleatoria antes de teletransportarse al siguiente waypoint
-        yield return new WaitForSeconds(Random.Range(1f, 3f));
-
-        // Teletransportarse al siguiente waypoint
-        indicePuntoActual = (indicePuntoActual + 1) % puntosRutaActual.Length;
-        transform.position = new Vector3(puntosRutaActual[indicePuntoActual].position.x, transform.position.y, puntosRutaActual[indicePuntoActual].position.z);
-
+        //activateCameraScript.PlayRandomSound();
+        float tiempoEspera = Random.Range(tiempoEsperaMin, tiempoEsperaMax);
+        yield return new WaitForSeconds(tiempoEspera);
+        indicePuntoActual = (indicePuntoActual + 1) % puntosRuta.Length;
+        transform.position = new Vector3(puntosRuta[indicePuntoActual].position.x, transform.position.y, puntosRuta[indicePuntoActual].position.z);
         isMoving = false;
-
-        // Llamar recursivamente a la coroutine para continuar el movimiento
-        StartCoroutine(MoveAnimatronic());
     }
-}
 
+}

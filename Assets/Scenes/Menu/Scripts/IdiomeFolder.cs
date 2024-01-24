@@ -11,7 +11,6 @@ public class IdiomeFolder : MonoBehaviour
 {
     public Button openButton;
     public Button exitButton;
-    public Button deleteButton;
     public Button night1Button;
     public Button night2Button;
     public Image blackScreen;
@@ -25,7 +24,6 @@ public class IdiomeFolder : MonoBehaviour
         transform.localScale = Vector3.zero;
         openButton.GetComponent<Button>().onClick.AddListener(openFolder);
         exitButton.GetComponent<Button>().onClick.AddListener(closeFolder);
-        deleteButton.GetComponent<Button>().onClick.AddListener(DataScript.DeletePlayerData);
     }
 
     public void openFolder()
