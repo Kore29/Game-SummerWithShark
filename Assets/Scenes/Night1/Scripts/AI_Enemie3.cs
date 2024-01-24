@@ -10,7 +10,7 @@ public class AI_Enemie3 : MonoBehaviour
     public float tiempoEsperaMax = 3f;
     public int indicePuntoActual = 0;
     public bool isPuerta = false;
-    public AudioSource audioSource;
+    public AudioSource Respir;
 
     public float maxTime = 10f;
     public float currentTime = 0f;
@@ -22,13 +22,10 @@ public class AI_Enemie3 : MonoBehaviour
     GameObject currentView;
     public bool puertaCerrada = false;
     public ActivateCamera activateCameraScript;
+
     void Start()
     {
-        audioSource = GetComponent<AudioSource>();
-        if (audioSource == null)
-        {
-            audioSource = gameObject.AddComponent<AudioSource>();
-        }
+
     }
 
     void Update()
@@ -36,6 +33,8 @@ public class AI_Enemie3 : MonoBehaviour
         currentView = GameObject.Find("MainCamera").GetComponent<SystemCamera>().currentView.gameObject;
         if (isPuerta)
         {
+            Respir.PlayOneShot(Respir.clip);
+
             if (Input.GetKey(KeyCode.F) && currentView.name == "RightView" && puertaCerrada == false)
             {
                 Debug.Log("perdiste");
@@ -51,6 +50,7 @@ public class AI_Enemie3 : MonoBehaviour
 
                     if (tiempoPresionando >= 5f)
                     {
+                        Respir.Stop();
                         salvado = true;
                         Debug.Log("salvado");
                         indicePuntoActual = 0;
@@ -77,6 +77,7 @@ public class AI_Enemie3 : MonoBehaviour
 
                     if (tiempoPresionando >= 5f)
                     {
+                        Respir.Stop();
                         salvado = true;
                         Debug.Log("salvado");
                         indicePuntoActual = 0;
@@ -98,22 +99,15 @@ public class AI_Enemie3 : MonoBehaviour
         if (indicePuntoActual == puntosRuta.Length - 1)
         {
             isPuerta = true;
-            //  if (!audioSource.isPlaying && currentView.name == "RightView")
-            //  {
-            //    audioSource.Play();
-            //  }
         }
         else
         {
-            //      audioSource.volume = 0f; // Mutea si no est�s en "RightView"
             if (!isMoving)
             {
                 StartCoroutine(MoveAnimatronic());
             }
         }
     }
-
-
 
     IEnumerator MoveAnimatronic()
     {

@@ -41,7 +41,6 @@ public class AI_Enemie1 : MonoBehaviour
         }
         else
         {
-            //      audioSource.volume = 0f; // Mutea si no est�s en "RightView"
             if (!isMoving)
             {
                 StartCoroutine(MoveAnimatronic());

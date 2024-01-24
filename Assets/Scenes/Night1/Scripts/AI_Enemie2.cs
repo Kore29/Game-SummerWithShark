@@ -31,6 +31,7 @@ public class AI_Enemie2 : MonoBehaviour
 
     GameObject currentView;
     public ActivateCamera activateCameraScript;
+
     void Start()
     {
 
