@@ -4,33 +4,46 @@ using UnityEngine;
 public class AI_Enemie2 : MonoBehaviour
 {
     public Transform[] puntosRuta;
+    public Transform WayPointPerdido;
     public float tiempoEsperaMin = 1f;
     public float tiempoEsperaMax = 3f;
     public int indicePuntoActual = 0;
-    public bool isPuerta = false;
 
     public float maxTime = 3f;
     public float currentTime = 0f;
     public float tiempoRestante = 20f;
     public bool salvado = false;
     public bool isMoving = false;
+    public bool isPuerta = false;
+    public bool puertaCerrada = false;
+    private bool puedeReproducir = true;
+    public bool animation = false;
 
     public GameObject FlashLight;
-    public AudioSource Jumpscare;
-    public float tiempoEspera = 30f;  // tiempo en segundos antes de poder reproducir el sonido nuevamente
-    private bool puedeReproducir = true;
+    public Light Light;
+
+    public float tiempoEspera = 30f;
     private float tiempoUltimaReproduccion;
 
-    public AI_Enemie3 ai3;
-
     public AudioSource stepsAudio;
+    public AudioSource Jumpscare;
+    public AudioSource JumpscareGeneral;
 
     GameObject currentView;
-    public bool puertaCerrada = false;
     public ActivateCamera activateCameraScript;
 
-    public bool animation = false;
-    public Light Light;
+    public GameObject LightDoorLeft;
+    public GameObject LightDoorRight;
+    public GameObject RoomLightDetras;
+    public GameObject LampLight;
+    public GameObject RedPhone;
+    public GameObject LostLight;
+
+
+    public GameObject canvas;
+    public GameObject TVcube;
+    public GameObject Lost;
+
     void Start()
     {
 
@@ -54,23 +67,18 @@ public class AI_Enemie2 : MonoBehaviour
             else if (!salvado)
             {
                 puertaCerrada = false;
-                Debug.Log("perdiste");
+                AnimationLost();
+                AnimationLostFinal();
+                //Debug.Log("perdiste");
             }
         }
 
-        // Verificar
         if (Input.GetKey(KeyCode.F) && currentView.name == "LeftView" && isPuerta == true)
         {
-            // Verificar si puede reproducir el sonido
             if (puedeReproducir && !Jumpscare.isPlaying)
             {
-                // Reproducir el sonido
                 Jumpscare.Play();
-
-                // Actualizar el tiempo de la última reproducción
                 tiempoUltimaReproduccion = Time.time;
-
-                // Desactivar la capacidad de reproducción hasta que haya pasado el tiempo de espera
                 puedeReproducir = false;
             }
         }
@@ -82,13 +90,37 @@ public class AI_Enemie2 : MonoBehaviour
         else
         {
             if (!isMoving)
-            {
+            {   
                 StartCoroutine(MoveAnimatronic());
             }
         }
     }
 
+    void AnimationLost()
+    {
+        transform.position = WayPointPerdido.transform.position;
 
+        JumpscareGeneral.Play();
+        tiempoRestante += 5f;
+
+        LampLight.SetActive(false);
+        RoomLightDetras.SetActive(false);
+        LightDoorLeft.SetActive(false);
+        LightDoorRight.SetActive(false);
+        RedPhone.SetActive(false);
+        LostLight.SetActive(true);
+
+        canvas.gameObject.SetActive(false);
+        TVcube.SetActive(false);
+        LostLight.SetActive(true);
+    }
+
+    IEnumerator AnimationLostFinal()
+    {
+        yield return new WaitForSeconds(5f);
+        Lost.SetActive(true);
+        JumpscareGeneral.Stop();
+    }
 
     IEnumerator MoveAnimatronic()
     {
@@ -104,7 +136,6 @@ public class AI_Enemie2 : MonoBehaviour
 
     IEnumerator DeskAnimation()
     {
-        //ai3.disabledd = true;
         Debug.Log("salvado");
         animation = true;
         Light.enabled = false;

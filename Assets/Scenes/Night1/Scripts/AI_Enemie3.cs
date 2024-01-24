@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using UnityEngine;
 
 public class AI_Enemie3 : MonoBehaviour
@@ -8,7 +8,6 @@ public class AI_Enemie3 : MonoBehaviour
     public float tiempoEsperaMax = 3f;
     public int indicePuntoActual = 0;
     public bool isPuerta = false;
-    public AudioSource audioSource;
 
     public float maxTime = 10f;
     public float currentTime = 0f;
@@ -20,14 +19,11 @@ public class AI_Enemie3 : MonoBehaviour
     GameObject currentView;
     public bool puertaCerrada = false;
     public ActivateCamera activateCameraScript;
+
     void Start()
     {
-        audioSource = GetComponent<AudioSource>();
-        if (audioSource == null)
-        {
-            audioSource = gameObject.AddComponent<AudioSource>();
-        }
     }
+
     void Update()
     {
         currentView = GameObject.Find("MainCamera").GetComponent<SystemCamera>().currentView.gameObject;
@@ -61,7 +57,7 @@ public class AI_Enemie3 : MonoBehaviour
                 else
                 {
                     puertaCerrada = false;
-                    // Reiniciar el tiempo de presionado si la tecla no está siendo presionada
+                    // Reiniciar el tiempo de presionado si la tecla no estï¿½ siendo presionada
                     tiempoPresionando = 0f;
                 }
             }
@@ -94,6 +90,10 @@ public class AI_Enemie3 : MonoBehaviour
 
         if (indicePuntoActual == puntosRuta.Length - 1)
         {
+            isPuerta = true;
+        }
+        else
+        {
             if (!isMoving)
             {
                 StartCoroutine(MoveAnimatronic());
@@ -101,15 +101,21 @@ public class AI_Enemie3 : MonoBehaviour
         }
     }
 
+
+
     IEnumerator MoveAnimatronic()
     {
         isMoving = true;
-        //activateCameraScript.PlayRandomSound();
+        activateCameraScript.PlayRandomSound();
         StartCoroutine(activateCameraScript.changeCameraEffect());
         float tiempoEspera = Random.Range(tiempoEsperaMin, tiempoEsperaMax);
         yield return new WaitForSeconds(tiempoEspera);
         indicePuntoActual = (indicePuntoActual + 1) % puntosRuta.Length;
         transform.position = new Vector3(puntosRuta[indicePuntoActual].position.x, transform.position.y, puntosRuta[indicePuntoActual].position.z);
+        transform.rotation = puntosRuta[indicePuntoActual].rotation;
+        Quaternion targetRotation = Quaternion.Euler(targetRotationEuler);
+        transform.rotation = targetRotation;
         isMoving = false;
     }
+
 }

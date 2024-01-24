@@ -25,13 +25,16 @@ public class ActivateCamera : MonoBehaviour
     public GameObject TVCube;
     public GameObject CameraLight;
 
-
+    public AudioSource TvStaticSound;
     public GameObject canvas;
     public bool disabledCamera;
 
     void Start()
     {
-        // uiPanel.SetActive(false);
+        if (sounds == null || sounds.Length == 0)
+        {
+            Debug.LogError("La matriz de sonidos no está inicializada o está vacía.");
+        }
     }
 
     void Update()
@@ -68,7 +71,9 @@ public class ActivateCamera : MonoBehaviour
         uiPanel.SetActive(true);
         postProcessing.SetActive(true);
         Camera.main.fieldOfView = 39f;
-        
+        TvStaticSound.Play();
+
+
         canvas.gameObject.SetActive(false);
 
         Button backBtn = GameObject.Find("BackCamera").GetComponent<Button>();
@@ -95,6 +100,7 @@ public class ActivateCamera : MonoBehaviour
         BatteryScript.GetComponent<BatteryScript>().ModifyUsage(false);
 
         canvas.gameObject.SetActive(true);
+        TvStaticSound.Stop();
     }
 
     void CloseAnimation()

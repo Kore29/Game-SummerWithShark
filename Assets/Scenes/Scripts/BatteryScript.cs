@@ -21,11 +21,13 @@ public class BatteryScript : MonoBehaviour
     public TextMeshProUGUI batteryText;
 
     public GameObject TVCube;
+    public GameObject canvas;
 
     public Light RoomLightGreen;
     public Light RoomLightRed;
 
     public GameObject LightDoorLeft;
+    public GameObject LightDoorRight;
     public GameObject RoomLightDetras;
     public GameObject LampLight;
     public GameObject RedPhone;
@@ -63,7 +65,11 @@ public class BatteryScript : MonoBehaviour
             LampLight.SetActive(false);
             RoomLightDetras.SetActive(false);
             LightDoorLeft.SetActive(false);
+            LightDoorRight.SetActive(false);
             RedPhone.SetActive(false);
+
+            canvas.gameObject.SetActive(false);
+            MusicFinal.Play();
 
             // Asigna el clip antes de reproducirlo
             ElectricStatic.Stop();
@@ -77,7 +83,7 @@ public class BatteryScript : MonoBehaviour
         if (EnergiaActual <= 0 && !yaReprodujoSonido)
         {
             // Incrementar EnergiaActual y establecer la bandera a true
-            EnergiaActual += 1f;
+            EnergiaActual += 0.3f;
             yaReprodujoSonido = true;
 
             // Restablecer la configuración y reproducir el sonido

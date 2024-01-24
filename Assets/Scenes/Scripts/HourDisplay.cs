@@ -21,6 +21,10 @@ public class Timer : MonoBehaviour
     private Color startColor;
     private Color endColor;
 
+    public AudioSource powerSound;
+    public AudioSource storm;
+    public AudioSource SoundFinal;
+
     private void Start()
     {
         // Bucle para actualizar el reloj
@@ -53,7 +57,12 @@ public class Timer : MonoBehaviour
         WinUI.SetActive(true);
         CamerasUI.SetActive(false);
         // Realizar animación
+
+        storm.Stop();
+        powerSound.Stop();
+
         StartCoroutine(AnimateTextSwap());
+        SoundFinal.Play();
     }
 
     IEnumerator AnimateTextSwap()
