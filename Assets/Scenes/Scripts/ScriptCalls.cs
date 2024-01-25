@@ -13,9 +13,11 @@ public class ControlDeSonido : MonoBehaviour
 
     private bool sonidoDetenido = false;
     private int idiomaActual = 0;           // Variable para rastrear el idioma actual
+    private float tiempoEspera = 30f;
 
     private void Start()
     {
+
         idiomaActual = GameManager.Instance.IdiomaSeleccionado;
 
         // Asigna AudioSource desde el Inspector o agrega uno si no se asigna
@@ -32,6 +34,7 @@ public class ControlDeSonido : MonoBehaviour
 
     private void Update()
     {
+
         if (Input.GetMouseButtonDown(0))
         {
             RaycastHit hit;

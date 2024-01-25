@@ -22,7 +22,7 @@ public class AI_Enemie2 : MonoBehaviour
     public GameObject FlashLight;
     public Light Light;
 
-    public float tiempoEspera = 30f;
+    public float tiempoEspera = 15f;
     private float tiempoUltimaReproduccion;
 
     public AudioSource stepsAudio;
@@ -65,7 +65,7 @@ public class AI_Enemie2 : MonoBehaviour
             {
                 Jumpscare.Play();
                 tiempoUltimaReproduccion = Time.time;
-                puedeReproducir = false;
+                puedeReproducir = true;
             }
         }
 
